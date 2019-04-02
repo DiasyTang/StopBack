@@ -31,15 +31,18 @@ namespace ShopBack.Migrations
 
                     b.Property<long>("Level");
 
-                    b.Property<string>("MenuAlias");
+                    b.Property<string>("MenuAlias")
+                        .IsRequired();
 
                     b.Property<string>("MenuIcon");
 
-                    b.Property<string>("MenuName");
+                    b.Property<string>("MenuName")
+                        .IsRequired();
 
                     b.Property<int>("MenuStatus");
 
-                    b.Property<string>("MenuUrl");
+                    b.Property<string>("MenuUrl")
+                        .IsRequired();
 
                     b.Property<string>("ParentMenuCode")
                         .HasColumnType("nvarchar(6)");

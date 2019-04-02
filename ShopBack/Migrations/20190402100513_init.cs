@@ -12,9 +12,9 @@ namespace ShopBack.Migrations
                 columns: table => new
                 {
                     MenuCode = table.Column<string>(type: "nvarchar(6)", nullable: false),
-                    MenuName = table.Column<string>(nullable: true),
-                    MenuUrl = table.Column<string>(nullable: true),
-                    MenuAlias = table.Column<string>(nullable: true),
+                    MenuName = table.Column<string>(nullable: false),
+                    MenuUrl = table.Column<string>(nullable: false),
+                    MenuAlias = table.Column<string>(nullable: false),
                     MenuIcon = table.Column<string>(nullable: true),
                     ParentMenuCode = table.Column<string>(type: "nvarchar(6)", nullable: true),
                     ParentMenuName = table.Column<string>(nullable: true),
@@ -97,6 +97,8 @@ namespace ShopBack.Migrations
                     Password = table.Column<string>(nullable: true),
                     Avatar = table.Column<string>(nullable: true),
                     UserStatus = table.Column<int>(nullable: false),
+                    IsLocked = table.Column<bool>(nullable: false),
+                    IsLogined = table.Column<bool>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     CreatorId = table.Column<Guid>(nullable: true),

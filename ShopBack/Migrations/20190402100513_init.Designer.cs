@@ -10,8 +10,8 @@ using ShopBack.Entities;
 namespace ShopBack.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20190401091348_update-class")]
-    partial class updateclass
+    [Migration("20190402100513_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,15 +33,18 @@ namespace ShopBack.Migrations
 
                     b.Property<long>("Level");
 
-                    b.Property<string>("MenuAlias");
+                    b.Property<string>("MenuAlias")
+                        .IsRequired();
 
                     b.Property<string>("MenuIcon");
 
-                    b.Property<string>("MenuName");
+                    b.Property<string>("MenuName")
+                        .IsRequired();
 
                     b.Property<int>("MenuStatus");
 
-                    b.Property<string>("MenuUrl");
+                    b.Property<string>("MenuUrl")
+                        .IsRequired();
 
                     b.Property<string>("ParentMenuCode")
                         .HasColumnType("nvarchar(6)");

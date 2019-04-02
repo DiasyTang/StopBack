@@ -64,8 +64,7 @@ namespace ShopBack.MiddleWares
                 Trace = stackTrace,
                 Data = null,
                 IsSuccess = false
-            }
-            ));
+            }));
         }
     }
 }
