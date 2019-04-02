@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
+using ShopBack.RequestDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopBack.RequestDTOs
+namespace ShopBack.ResponeDTOs
 {
-    public class AlterMenuRequest
+    public class MenuRespone
     {
         [JsonProperty("menuCode")]
         public string MenuCode { get; set; }
@@ -20,6 +21,8 @@ namespace ShopBack.RequestDTOs
         public string MenuUrl { get; set; }
         [JsonProperty("parentMenuCode")]
         public string ParentMenuCode { get; set; }
+        [JsonProperty("parentMenuName")]
+        public string ParentMenuName { get; set; }
         [JsonProperty("level")]
         public uint Level { get; set; }
         [JsonProperty("sort")]
@@ -30,29 +33,17 @@ namespace ShopBack.RequestDTOs
         public bool IsDefaultRouter { get; set; }
         [JsonProperty("desc")]
         public string Description { get; set; }
-    }
-
-    public class ChangeMenuStatusRequest
-    {
-        [JsonProperty("menuIds")]
-        public string MenuIds { get; set; }
-        [JsonProperty("status")]
-        public uint Status { get; set; }
-    }
-
-    public class MenusRequest
-    {
-        [JsonProperty("menuName")]
-        public string MenuName { get; set; }
-        [JsonProperty("menuAlias")]
-        public string MenuAlias { get; set; }
-        [JsonProperty("menuUrl")]
-        public string MenuUrl { get; set; }
-        [JsonProperty("menuStatus")]
-        public int? MenuStatus { get; set; }
-        [JsonProperty("isDefaultRouter")]
-        public bool? IsDefaultRouter { get; set; }
-        [JsonProperty("parentMenuName")]
-        public string ParentMenuName { get; set; }
+        [JsonProperty("createdOn")]
+        public string CreatedOn { get; set; }
+        [JsonProperty("creatorId")]
+        public Guid? CreatorId { get; set; }
+        [JsonProperty("creatorName")]
+        public string CreatorName { get; set; }
+        [JsonProperty("modifiedOn")]
+        public string ModifiedOn { get; set; }
+        [JsonProperty("modifiedByUserId")]
+        public Guid? ModifiedByUserId { get; set; }
+        [JsonProperty("modifiedByUserName")]
+        public string ModifiedByUserName { get; set; }
     }
 }

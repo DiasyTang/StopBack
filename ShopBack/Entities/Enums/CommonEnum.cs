@@ -15,19 +15,15 @@ namespace ShopBack.Entities.Enums
             /// <summary>
             /// 未指定
             /// </summary>
-            All = -1,
+            All = 0,
             /// <summary>
             /// 已禁用
             /// </summary>
-            Forbidden = 0,
+            Forbidden = 1,
             /// <summary>
             /// 正常
             /// </summary>
-            Normal = 1,
-            /// <summary>
-            /// 已删除
-            /// </summary>
-            Deleted=2
+            Normal = 2
         }
 
         /// <summary>

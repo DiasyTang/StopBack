@@ -11,7 +11,7 @@ namespace ShopBack.ResponeDTOs
         [JsonProperty("isSuccess")]
         public bool IsSuccess { get; set; } = true;
         [JsonProperty("responeCode")]
-        public int ResponeCode { get; set; } = 200;
+        public int StatusCode { get; set; } = 200;
         [JsonProperty("message")]
         public string Message { get; set; }
         [JsonProperty("data")]
