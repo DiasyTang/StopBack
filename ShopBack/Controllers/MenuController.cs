@@ -104,7 +104,8 @@ namespace ShopBack.Controllers
                 var menus = db.Menu.Where(q => menuIds.Any(x => x == q.MenuCode)).ToList();
                 if (menuIds.Length == menus.Count)
                 {
-                    db.Menu.RemoveRange(menus);
+                    menus.ForEach(q => q.IsDeleted = true);
+                    db.Menu.UpdateRange(menus);
                     db.SaveChanges();
                     respone.Data = "";
                     respone.Message = "删除菜单成功";
@@ -157,16 +158,17 @@ namespace ShopBack.Controllers
             return respone;
         }
 
+
         [HttpPost]
         [Route("api/menu/list")]
-        public ResponeDTO<MenuRespone[]> Menus(RequestDTO<MenusRequest> menusRequest)
+        public ResponeDTO<List<MenuRespone>> Menus(RequestDTO<MenusRequest> menusRequest)
         {
             if (string.IsNullOrWhiteSpace(menusRequest.TimeStamp))
             {
                 throw new ArgumentException("请求接口参数有错误");
             }
 
-            var respone = new ResponeDTO<MenuRespone[]>();
+            var respone = new ResponeDTO<List<MenuRespone>>();
             using (var db = new ShopDbContext())
             {
                 var query = db.Menu.AsQueryable();
@@ -203,6 +205,7 @@ namespace ShopBack.Controllers
                 respone.Data = query.Select(q => new MenuRespone()
                 {
                     MenuUrl = q.MenuUrl,
+                    MenuCode = q.MenuCode,
                     MenuName = q.MenuName,
                     MenuIcon = q.MenuIcon,
                     IsDefaultRouter = q.IsDefaultRouter,
@@ -213,10 +216,45 @@ namespace ShopBack.Controllers
                     CreatedOn = q.AuditEntity.CreatedOn.ToString(),
                     CreatorName = q.AuditEntity.CreatorName,
                     CreatorId = q.AuditEntity.CreatorId
-                }).ToArray();
+                }).ToList();
                 respone.TimeStamp = menusRequest.TimeStamp;
+                respone.Total = respone.Data.Count();
             }
             return respone;
+        }
+
+        [HttpGet("api/menu/tree")]
+        public ResponeDTO<List<MenuTreeRespone>> MenuTree(string timeStamp)
+        {
+            ResponeDTO<List<MenuTreeRespone>> respone = new ResponeDTO<List<MenuTreeRespone>>();
+
+            using (var db = new ShopDbContext())
+            {
+                var menus = db.Menu.AsEnumerable();
+                List<MenuTreeRespone> data = MenuTreeGenerator(menus, "");
+                respone.Data = data;
+            }
+            respone.TimeStamp = timeStamp;
+            return respone;
+        }
+
+        private List<MenuTreeRespone> MenuTreeGenerator(IEnumerable<Menu> menus, string parentMenuCode)
+        {
+            var data = menus.Where(q => q.ParentMenuCode == parentMenuCode).Select(q => new MenuTreeRespone()
+            {
+                MenuAlias = q.MenuAlias,
+                MenuCode = q.MenuCode,
+                MenuName = q.MenuName,
+                Children = new List<MenuTreeRespone>()
+            }).ToList();
+            foreach (var item in data)
+            {
+                if (menus.Any(q => q.ParentMenuCode == item.MenuCode))
+                {
+                    item.Children = this.MenuTreeGenerator(menus, item.MenuCode);
+                }
+            }
+            return data;
         }
     }
 }

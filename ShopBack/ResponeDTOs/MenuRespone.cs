@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShopBack.Entities;
 using ShopBack.RequestDTOs;
 using System;
 using System.Collections.Generic;
@@ -45,5 +46,17 @@ namespace ShopBack.ResponeDTOs
         public Guid? ModifiedByUserId { get; set; }
         [JsonProperty("modifiedByUserName")]
         public string ModifiedByUserName { get; set; }
+    }
+
+    public class MenuTreeRespone
+    {
+        [JsonProperty("menuCode")]
+        public string MenuCode { get; set; }
+        [JsonProperty("menuName")]
+        public string MenuName { get; set; }
+        [JsonProperty("menuAlias")]
+        public string MenuAlias { get; set; }
+        [JsonProperty("children")]
+        public List<MenuTreeRespone> Children { get; set; }
     }
 }

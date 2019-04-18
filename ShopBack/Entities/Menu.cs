@@ -16,7 +16,7 @@ namespace ShopBack.Entities
         /// <summary>
         /// 菜单编码
         /// </summary>
-        [Key,Required]
+        [Key, Required]
         [Column(TypeName = "nvarchar(6)")]
         public string MenuCode { get; set; }
 
@@ -38,6 +38,10 @@ namespace ShopBack.Entities
         [Required]
         public string MenuAlias { get; set; }
 
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        public bool IsDeleted { get; set; } = false;
         /// <summary>
         /// 菜单图标可选
         /// </summary>
@@ -72,12 +76,12 @@ namespace ShopBack.Entities
         /// <summary>
         /// 菜单状态
         /// </summary>
-        public Status MenuStatus { get; set; } 
+        public Status MenuStatus { get; set; }
 
         /// <summary>
         /// 是否为默认路由
         /// </summary>
-        public bool IsDefaultRouter { get; set; } 
+        public bool IsDefaultRouter { get; set; }
 
         /// <summary>
         /// 创建与修改记录
